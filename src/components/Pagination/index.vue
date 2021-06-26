@@ -1,18 +1,19 @@
 <template>
   <div class="pagination">
-    <button :class="{disable:myCurrentPage===1 }">上一页</button>
-    <button v-if="startEnd.start > 1">1</button>
+    <button :class="{disable:myCurrentPage===1 }" @click="setCurrentPage(myCurrentPage-1)">上一页</button>
+    <button v-if="startEnd.start > 1" @click="setCurrentPage(1)">1</button>
     
     <button class="disable" v-if="startEnd.start > 2">...</button>
 
     <button v-for="item in startEnd.end" :key="item" v-if="item>=startEnd.start" 
       :class="{active: item === myCurrentPage }"
+      @click="setCurrentPage(item)"
       >{{item}}</button>
 
     <button class="disable" v-if="startEnd.end < totalPages -1">...</button>
                                                
-    <button v-if="startEnd.end <totalPages">{{totalPages}}</button>
-    <button :class="{disable:myCurrentPage === totalPages}">下一页</button>
+    <button v-if="startEnd.end <totalPages" @click="setCurrentPage(totalPages)">{{totalPages}}</button>
+    <button :class="{disable:myCurrentPage === totalPages}" @click="setCurrentPage(myCurrentPage + 1)">下一页</button>
 
     <button class="disable">共{{total}}条</button>
   </div>
